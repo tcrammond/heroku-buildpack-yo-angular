@@ -139,6 +139,18 @@ status "Building runtime environment"
 mkdir -p $build_dir/.profile.d
 echo "export PATH=\"\$HOME/vendor/node/bin:\$HOME/bin:\$HOME/node_modules/.bin:\$PATH\";" > $build_dir/.profile.d/nodejs.sh
 
+# Check and run Bower
+(
+  if [ -f $build_dir/bower.json ]; then
+    # make sure that bower is installed locally
+    npm install bower
+    echo "-----> Found bower.json, running bower install"
+    $build_dir/node_modules/.bin/bower install
+  else
+    echo "-----> No bower.json found"
+  fi
+)
+
 # Check and run Grunt
 (
   if [ -f $build_dir/grunt.js ] || [ -f $build_dir/Gruntfile.js ] || [ -f $build_dir/Gruntfile.coffee ]; then
@@ -158,15 +170,6 @@ echo "export PATH=\"\$HOME/vendor/node/bin:\$HOME/bin:\$HOME/node_modules/.bin:\
   fi
 )
 
-# Post package.json to nomnom service
-# Use a subshell so failures won't break the build.
-(
-  curl \
-    --data @$build_dir/package.json \
-    --fail \
-    --silent \
-    --request POST \
-    --header "content-type: application/json" \
-    https://nomnom.heroku.com/?request_id=$REQUEST_ID \
-    > /dev/null
-) &
+# Remove some common bulk to reduce slug size
+rm -rf .bowerrc .editorconfig .git .gitattributes .gitignore .jshintrc .travis.yml Gruntfile.js app bower.json karma-e2e.conf.js karma.conf.js package.json test
+rm -rf node_modules/*grunt* node_modules/*karma* node_modules/jshint* node_modules/bower

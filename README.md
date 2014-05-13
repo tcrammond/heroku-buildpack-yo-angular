@@ -1,9 +1,9 @@
 # Heroku buildpack: Yo Angular
 
 ## Parent Repository
-Refer to the parent repo's [readme](https://github.com/mbuchetics/heroku-buildpack-nodejs-grunt/blob/2168fa2da5e7c8adf4ef60922afc2b0199f404de/README.md) **first**. This fork was made at commit 2168fa2. The readme link refers to the `README.md` file at that same commit.
+Refer to the parent repo's [readme](https://github.com/mbuchetics/heroku-buildpack-nodejs-grunt/blob/master/README.md) **First**.
 
-## Features
+## Additional Features
 - Installs bower apps from a `bower.json` file in the root directory
 
 - Deletes a few common files that are not need for production by Angular apps to reduce the slug size. This reduces the slug size by almost 70% in most of my repositories.  

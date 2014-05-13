@@ -32,7 +32,7 @@ Refer to the parent repo's [readme](https://github.com/mbuchetics/heroku-buildpa
 - node_modules/bower
 
 ## How to make your angular app work with this buildpack
-This buildpack uses a task in your `Gruntfile` to build the contents of your `app` folder into a production ready `dist` folder. This is the same thing the command `grunt` does in your `yo angular` app. All of this takes place on the heroku server, so all you have to do is push your app's source code to heroku with the standard `.gitignore` file . There is no need for you to commit the `dist` folder or any other pre-built files like a lot of the other online guides suggest. This buildpack installs all the `node_modules`, `bower_components` and uses `grunt` to build your app.
+This buildpack uses a task in your `Gruntfile` to build the contents of your `app` folder into an optimized `dist` folder. This is the same thing the command `grunt` does in your `yo angular` app. All of this takes place on the heroku server, so all you have to do is push your app's source code to heroku with the standard `.gitignore` file . There is no need for you to commit the `dist` folder or any other pre-built files like a lot of the other online guides suggest. This buildpack installs all the `node_modules`, `bower_components` and uses `grunt` to build your app.
 
 ### 5 Step Guide
 
@@ -58,7 +58,7 @@ nodeApp.listen(process.env.PORT || 5000);
 ```js
 grunt.registerTask('heroku', ['build']);
 ```
-This is the task that will be run by heroku on the heroku server. I have just included the `build` task here (referring to the standard `build` task created by the `yo angular`) but you could add the `newer:jshint` and the `test` task too, like in the default `Gruntfile`s `default` task.
+This is the task that will be run by heroku on the heroku server. I have just included the `build` task here (referring to the standard `build` task created by the `yo angular`) but you could add the `newer:jshint` and the `test` task too.
 
 You can also set the environment variable `NODE_ENV` on your heroku server if you want the buildpack to call a `heroku:$NODE_ENV` task. In that case, here is how the task will look like in your `Gruntfile`:
 

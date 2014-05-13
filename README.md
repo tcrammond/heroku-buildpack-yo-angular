@@ -26,9 +26,9 @@ Refer to the parent repo's [readme](https://github.com/mbuchetics/heroku-buildpa
 - karma.conf.js
 - package.json
 - test/
-- node_modules/*grunt*
-- node_modules/*karma*
-- node_modules/jshint*
+- node_modules/\*grunt\*
+- node_modules/\*karma\*
+- node_modules/jshint\*
 - node_modules/bower
 
 ## How to make your angular app work with this buildpack
@@ -63,12 +63,13 @@ heroku config:set BUILDPACK_URL=https://github.com/nknj/heroku-buildpack-yo-angu
 ```js
 grunt.registerTask('heroku', ['build']);
 ```
-This is the task that will be run by heroku on the heroku server. I have just included the build task here but you could add the `newer:jshint` adn the `test` task too, like in the default `Gruntfile`s `default` task.
+This is the task that will be run by heroku on the heroku server. I have just included the build task here but you could add the `newer:jshint` and the `test` task too, like in the default `Gruntfile`s `default` task.
 
 You can also set the environment variable `NODE_ENV` on your heroku server if you want the buildpack to call a `heroku:$NODE_ENV` task. In that case, here is how the task will look like in your `Gruntfile`:
 
 ```js
 grunt.registerTask('heroku', function (target) {
+  // use the target to do whatever, for example:
   grunt.task.run('build:' + target);
 });
 ```

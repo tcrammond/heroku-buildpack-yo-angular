@@ -3,13 +3,14 @@
 ## Parent Repository
 Refer to the parent repo's [readme](https://github.com/mbuchetics/heroku-buildpack-nodejs-grunt/blob/2168fa2da5e7c8adf4ef60922afc2b0199f404de/README.md) for more information. This fork was made at commit 2168fa2. The readme link refers to the `README.md` file at that same commit.
 
-## Key Differences
-- The parent repository install bower apps from a `bower.json` file in the root directory, this does
+## Features
+- Installs bower apps from a `bower.json` file in the root directory
 
-- This repository deletes a few common files that are not need for production to reduce the slug size
-This reduces the slug size by almost 70% in most of my repositories. I don't typically use any of these files I am getting rid of but if you do, please fork and edit this for yourself.
+- Deletes a few common files that are not need for production by Angular apps to reduce the slug size. This reduces the slug size by almost 70% in most of my repositories.  
 
-### Current files being deleted:
+**WARNING:** As far as I know, none of these files and folder are or should be used in a production environment. They are only used for builds. If you are using any of the following files for production, this buildpack is likely to give you problems.
+
+### Current files being deleted to reduce slug size:
 - .bowerrc
 - .editorconfig
 - .git/
@@ -30,10 +31,10 @@ This reduces the slug size by almost 70% in most of my repositories. I don't typ
 - node_modules/jshint*
 - node_modules/bower
 
-## How this works
-This buildpack uses a task in your `Gruntfile` to build your `app` into production ready `dist` the same way the command `grunt` does. It does this on the heroku server, so all you have to do is push your angular app to heroku. There is no need for you to commit the `dist` folder or any pre-compiled files like a lot of the other online guides suggest.
+## How to make your angular app work with this buildpack
+This buildpack uses a task in your `Gruntfile` to build the contents of your `app` folder into a production ready `dist` folder. This is the same thing the command `grunt` does in your `yo angular` app. All of this takes place on the heroku server, so all you have to do is push your app's source code to heroku with the standard `.gitignore` file . There is no need for you to commit the `dist` folder or any other pre-built files like a lot of the other online guides suggest. This buildpack installs all the `node_modules`, `bower_components` and uses `grunt` to build your app.
 
-### How to make it work:
+### 5 Step Guide
 
 #### Step 1: `devDependecies` to `dependencies` in `packages.json`
 Move all the grunt packages in `devDependencies` that are required for your build task to `dependencies`. The build takes place on the heroku server, so these packages are needed. At the end of the compilation, most of these dependencies are deleted to reduce your slug size.
@@ -58,7 +59,21 @@ nodeApp.listen(process.env.PORT || 5000);
 heroku config:set BUILDPACK_URL=https://github.com/nknj/heroku-buildpack-yo-angular.git
 ```
 
-#### Step 4: Deploy
+#### Step 4: Add a heroku task to your Gruntfile
+```js
+grunt.registerTask('heroku', ['build']);
+```
+This is the task that will be run by heroku on the heroku server. I have just included the build task here but you could add the `newer:jshint` adn the `test` task too, like in the default `Gruntfile`s `default` task.
+
+You can also set the environment variable `NODE_ENV` on your heroku server if you want the buildpack to call a `heroku:$NODE_ENV` task. In that case, here is how the task will look like in your `Gruntfile`:
+
+```js
+grunt.registerTask('heroku', function (target) {
+  grunt.task.run('build:' + target);
+});
+```
+
+#### Step 5: Deploy
 ```
 git push heroku master
 ```

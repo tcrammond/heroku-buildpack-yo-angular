@@ -40,16 +40,17 @@ This buildpack uses a task in your `Gruntfile` to build the contents of your `ap
 Move all the grunt packages in `devDependencies` that are required for your build task to `dependencies`. The build takes place on the heroku server, so these packages are needed on the server. At the end of the compilation, most of these dependencies are deleted to reduce your slug size.
 
 #### Step 2: Set up your `node.js` web server and add a `Procfile` command
-I use `express` and `gzippo` with the `Procfile` command `web: node web.js`. But you can use anything. Here is a sample of my `web.js` file:
+I use `express`, `gzippo` and `morgan` with the `Procfile` command `web: node web.js`. But you can use anything. Here is a sample of my `web.js` file:
 
 ```js
 'use strict';
 
 var gzippo = require('gzippo');
 var express = require('express');
+var logger = require('morgan');
 var nodeApp = express();
 
-nodeApp.use(express.logger('dev'));
+nodeApp.use(logger('dev'));
 nodeApp.use(gzippo.staticGzip('' + __dirname + '/dist'));
 nodeApp.listen(process.env.PORT || 5000);
 ```

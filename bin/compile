@@ -191,5 +191,5 @@ fi
 )
 
 # Remove some common bulk to reduce slug size
-rm -rf .bowerrc .editorconfig .git .gitattributes .gitignore .jshintrc .travis.yml .tmp .sass_cache
-rm -rf Gruntfile.js app bower.json karma-e2e.conf.js karma.conf.js package.json test
+rm -rf .bowerrc .editorconfig .git .gitattributes .gitignore .jshintrc .travis.yml .tmp .sass-cache
+rm -rf Gruntfile.js app bower_components bower.json karma-e2e.conf.js karma.conf.js package.json test

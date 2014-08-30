@@ -184,6 +184,7 @@ fi
 
     status "Pruning dev dependencies"
     npm prune --production 2>&1 | indent
+    npm prune --production 2>&1 | indent
 
   else
     echo "-----> No Gruntfile (grunt.js, Gruntfile.js, Gruntfile.coffee) found"

@@ -180,8 +180,6 @@ fi
       $build_dir/node_modules/.bin/grunt heroku:$NODE_ENV
     fi
 
-    $build_dir/node_modules/.bin/grunt heroku:$NODE_ENV
-
     status "Pruning dev dependencies"
     npm prune --production 2>&1 | indent
     npm prune --production 2>&1 | indent

@@ -9,29 +9,29 @@ Refer to the parent repo's [readme](https://github.com/mbuchetics/heroku-buildpa
 Additional Features
 -------------------
 
-- Installs bower apps from a `bower.json` file in the root directory
-- Installs compass
-- Deletes a few common files that are not need for production by Angular apps to reduce the slug size
+-	Installs bower apps from a `bower.json` file in the root directory
+-	Installs compass
+-	Deletes a few common files that are not need for production by Angular apps to reduce the slug size
 
 ### Current files being deleted to reduce slug size:
 
-- .bowerrc
-- .editorconfig
-- .git/
-- .gitattributes
-- .gitignore
-- .jshintrc
-- .travis.yml
-- .tmp/
-- .sass-cache/
-- Gruntfile.js
-- app/
-- bower_components/
-- bower.json
-- karma-e2e.conf.js
-- karma.conf.js
-- package.json
-- test/
+-	.bowerrc
+-	.editorconfig
+-	.git/
+-	.gitattributes
+-	.gitignore
+-	.jshintrc
+-	.travis.yml
+-	.tmp/
+-	.sass-cache/
+-	Gruntfile.js
+-	app/
+-	bower_components/
+-	bower.json
+-	karma-e2e.conf.js
+-	karma.conf.js
+-	package.json
+-	test/
 
 How to make your angular app work with this buildpack
 -----------------------------------------------------

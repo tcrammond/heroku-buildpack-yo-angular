@@ -172,35 +172,30 @@ fi
   fi
 )
 
-# Check and run Grunt
+# Check and run Gulp
 (
-  if [ -f $build_dir/grunt.js ] || [ -f $build_dir/Gruntfile.js ] || [ -f $build_dir/gruntfile.js ] || [ -f $build_dir/Gruntfile.coffee ]; then
+  if [ -f $build_dir/gulp.js ] || [ -f $build_dir/Gulpfile.js ] || [ -f $build_dir/gulpfile.js ] || [ -f $build_dir/Gulpfile.coffee ]; then
     # get the env vars
     if [ -d "$env_dir" ]; then
       status "Exporting config vars to environment"
       export_env_dir $env_dir
     fi
 
-    # make sure that grunt and grunt-cli are installed locally
-    npm install grunt-cli
-    npm install grunt
-    echo "-----> Found Gruntfile, running grunt heroku:$NODE_ENV task"
+    # make sure that gulp is installed
+    npm install gulp
+    echo "-----> Found Gulpfile, running gulp heroku task"
 
-    if [ -z "$GRUNT_FLAGS" ]; then
-      $build_dir/node_modules/.bin/grunt heroku:$NODE_ENV
-    else
-      $build_dir/node_modules/.bin/grunt heroku:$NODE_ENV $GRUNT_FLAGS
-    fi
+    $build_dir/node_modules/.bin/grunt heroku
 
     status "Pruning dev dependencies"
     npm prune --production 2>&1 | indent
     npm prune --production 2>&1 | indent
 
   else
-    echo "-----> No Gruntfile (grunt.js, Gruntfile.js, gruntfile.js, Gruntfile.coffee) found"
+    echo "-----> No Gulpfile (gulp.js, Gulpfile.js, gulpfile.js, Gulpfile.coffee) found"
   fi
 )
 
 # Remove some common bulk to reduce slug size
 rm -rf .bowerrc .editorconfig .git .gitattributes .gitignore .jshintrc .travis.yml .tmp .sass-cache
-rm -rf Gruntfile.js app bower_components bower.json karma-e2e.conf.js karma.conf.js package.json test
+rm -rf Gruntfile.js Gulpfile.js app bower_components bower.json karma-e2e.conf.js karma.conf.js package.json test

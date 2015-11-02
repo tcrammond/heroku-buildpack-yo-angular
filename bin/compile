@@ -185,7 +185,7 @@ fi
     npm install gulp
     echo "-----> Found Gulpfile, running gulp heroku task"
 
-    $build_dir/node_modules/.bin/grunt heroku
+    $build_dir/node_modules/.bin/gulp heroku
 
     status "Pruning dev dependencies"
     npm prune --production 2>&1 | indent
